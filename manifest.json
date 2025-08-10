@@ -1,7 +1,7 @@
 {
   "name": "Anti-tabac",
   "short_name": "Anti-tabac",
-  "start_url": "/app.html",
+  "start_url": "app.html",
   "display": "standalone",
   "background_color": "#0f1115",
   "theme_color": "#0f1115",
