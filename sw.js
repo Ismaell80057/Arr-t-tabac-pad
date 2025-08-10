@@ -1,4 +1,4 @@
-const CACHE = 'anti-tabac-mvp-v3';
+const CACHE = 'anti-tabac-pad-v5';
 const ASSETS = [
   './', './index.html', './app.html',
   './css/style.css',
