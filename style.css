@@ -1,0 +1,20 @@
+html,body{margin:0;background:#0f1115;color:#e9ecf1;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#101826;border-bottom:1px solid #233049}
+.brand{color:#cfe1ff;font-weight:800}
+.user{color:#a9b4c7}
+.tabs{display:flex;gap:8px;padding:10px;background:#0f1115;position:sticky;top:0;border-bottom:1px solid #1b2233;z-index:1}
+.tabs button{background:#141925;border:1px solid #233049;color:#d9e5ff;border-radius:10px;padding:8px 10px}
+.tabs button.active{background:#2a67ff;border-color:#2a67ff;color:#fff}
+main{max-width:860px;margin:0 auto;padding:14px}
+.card{background:#141925;border:1px solid #233049;border-radius:12px;padding:16px;margin:12px 0;box-shadow:0 3px 14px rgba(0,0,0,.25)}
+h1{color:#cfe1ff;font-size:1.4rem;margin:6px 0 12px}
+h2{color:#bcd3ff;margin:6px 0 10px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.display{font-variant-numeric:tabular-nums;font-size:2.2rem;font-weight:800;background:#101826;padding:10px 14px;border-radius:10px;border:1px solid #22314a;min-width:120px;text-align:center}
+button{background:#2a67ff;color:#fff;border:none;border-radius:10px;padding:10px 12px;font-weight:700}
+button.secondary{background:#334155}
+button.danger{background:#ef4444}
+label{color:#bcd3ff}
+input{background:#101826;border:1px solid #22314a;color:#e9ecf1;border-radius:10px;padding:10px}
+table{width:100%;border-collapse:collapse}
+th,td{border-bottom:1px solid #22314a;padding:8px;text-align:left}
