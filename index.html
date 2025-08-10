@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Anti-tabac – Connexion</title>
+  <meta name="theme-color" content="#0f1115">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <style>
+    body{margin:0;background:#0f1115;color:#e9ecf1;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+    .wrap{max-width:420px;margin:0 auto;padding:28px 16px}
+    h1{color:#cfe1ff;font-size:1.6rem;margin:6px 0 18px}
+    .card{background:#141925;border:1px solid #233049;border-radius:12px;padding:16px;margin:12px 0;box-shadow:0 3px 14px rgba(0,0,0,.25)}
+    label{display:block;margin:10px 0 6px;color:#bcd3ff}
+    input{width:100%;padding:12px;border-radius:10px;border:1px solid #22314a;background:#101826;color:#e9ecf1}
+    .row{display:flex;gap:10px;flex-wrap:wrap}
+    button{background:#2a67ff;color:#fff;border:none;border-radius:10px;padding:12px 14px;font-weight:700}
+    button.secondary{background:#334155}
+    .muted{color:#a9b4c7;font-size:.95rem}
+    .center{display:flex;justify-content:center}
+    .title{display:flex;justify-content:space-between;align-items:center}
+    a{color:#8fd3ff}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="title">
+      <h1>Anti-tabac – Connexion</h1>
+      <button id="install-sw" class="secondary" title="Activer le mode hors-ligne">Hors-ligne</button>
+    </div>
+
+    <div class="card">
+      <label for="login-username">Pseudo</label>
+      <input id="login-username" autocomplete="username" placeholder="ex. ismael">
+      <label for="login-password">Mot de passe</label>
+      <input id="login-password" type="password" autocomplete="current-password" placeholder="••••••••">
+      <div class="row" style="margin-top:12px">
+        <button id="login">Se connecter</button>
+        <button id="goto-signup" class="secondary">Créer un compte</button>
+      </div>
+      <p class="muted">Astuce : ajoute cette page à l’écran d’accueil pour un accès rapide.</p>
+    </div>
+
+    <div class="card" id="signup-card" style="display:none">
+      <h2>Créer un compte</h2>
+      <label for="su-username">Pseudo</label>
+      <input id="su-username" placeholder="ex. cass">
+      <label for="su-password">Mot de passe</label>
+      <input id="su-password" type="password" placeholder="min. 6 caractères">
+      <div class="row" style="margin-top:12px">
+        <button id="signup">Créer</button>
+        <button id="cancel-signup" class="secondary">Annuler</button>
+      </div>
+      <p class="muted">Les données sont stockées sur <b>cet appareil</b> (local). Synchro multi-appareils possible plus tard.</p>
+    </div>
+  </div>
+
+  <script>
+    function hash(s){let h=0;for(let i=0;i<s.length;i++)h=((h<<5)-h)+s.charCodeAt(i)|0;return h.toString();}
+    function getUsers(){return JSON.parse(localStorage.getItem('users')||'{}');}
+    function setUsers(u){localStorage.setItem('users', JSON.stringify(u));}
+    (function seed(){
+      const users=getUsers();
+      if(!users['ismael']){
+        users['ismael']={pass:hash('admin123'), role:'admin', data:{journal:[], settings:{pricePerPack:11.0,cigsPerDay:10}, created:Date.now()}};
+        setUsers(users);
+      }
+    })();
+    document.getElementById('goto-signup').onclick=()=>{
+      document.getElementById('signup-card').style.display='block';
+      window.scrollTo(0,document.body.scrollHeight);
+    };
+    document.getElementById('cancel-signup').onclick=()=>{
+      document.getElementById('signup-card').style.display='none';
+    };
+    document.getElementById('signup').onclick=()=>{
+      const u=document.getElementById('su-username').value.trim().toLowerCase();
+      const p=document.getElementById('su-password').value;
+      if(u.length<2||p.length<6){alert("Pseudo ou mot de passe trop court.");return;}
+      const users=getUsers();
+      if(users[u]){alert("Ce pseudo existe déjà.");return;}
+      users[u]={pass:hash(p), role:'user', data:{journal:[], settings:{pricePerPack:11.0,cigsPerDay:10}, created:Date.now()}};
+      setUsers(users);
+      alert("Compte créé ! Connecte-toi.");
+      document.getElementById('signup-card').style.display='none';
+    };
+    document.getElementById('login').onclick=()=>{
+      const u=document.getElementById('login-username').value.trim().toLowerCase();
+      const p=document.getElementById('login-password').value;
+      const users=getUsers();
+      if(!users[u]){alert("Utilisateur inconnu.");return;}
+      if(users[u].pass!==hash(p)){alert("Mot de passe incorrect.");return;}
+      sessionStorage.setItem('currentUser', u);
+      location.href='app.html';
+    };
+    document.getElementById('install-sw').onclick=async()=>{
+      if('serviceWorker' in navigator){
+        try{ await navigator.serviceWorker.register('sw.js'); alert('Mode hors-ligne activé ✅'); }
+        catch(e){ alert("Impossible d'activer le mode hors-ligne: "+e.message); }
+      }else alert('Service worker non supporté.');
+    };
+  </script>
+</body>
+</html>

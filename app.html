@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Anti-tabac – Carnet</title>
+  <meta name="theme-color" content="#0f1115">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand">Anti-tabac</div>
+    <div class="user" id="who"></div>
+  </div>
+  <nav class="tabs">
+    <button data-tab="timer" class="active">Minuteur</button>
+    <button data-tab="journal">Journal</button>
+    <button data-tab="stats">Stats</button>
+    <button data-tab="admin" id="adminTab" style="display:none">Admin</button>
+    <button data-tab="settings">Paramètres</button>
+  </nav>
+  <main>
+    <section id="timer" class="tab active">
+      <h1>Minuteur 5 min</h1>
+      <div class="card">
+        <div class="row">
+          <div class="display" id="display">05:00</div>
+          <button id="start">Démarrer</button>
+          <button id="add5" class="secondary">+5 min</button>
+          <button id="reset" class="secondary">Réinitialiser</button>
+        </div>
+        <div style="margin-top:10px">
+          <button id="wakelock" class="secondary">🔓 Garder l’écran allumé</button>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Script 5 minutes</h2>
+        <ul>
+          <li><b>0–1 min — Respire</b> : 6 cycles 4–4–6. Relâche mâchoire+épaules.</li>
+          <li><b>1–2 min — Hydrate</b> : 6 gorgées d’eau, marche légère.</li>
+          <li><b>2–3 min — Bouge</b> : étirements 30–60 s ou 20 squats doux.</li>
+          <li><b>3–4 min — Occupe</b> : chewing-gum/pastille, stylo.</li>
+          <li><b>4–5 min — Visualise</b> : “L’envie redescend toute seule.”</li>
+        </ul>
+      </div>
+    </section>
+    <section id="journal" class="tab">
+      <h1>Journal d’envies</h1>
+      <div class="card">
+        <div class="row">
+          <label>Intensité (/10) <input id="intensity" type="number" min="1" max="10" value="5"></label>
+          <label>Déclencheur <input id="trigger" placeholder="café, stress, ennui…"></label>
+        </div>
+        <label>Action faite <input id="action" placeholder="respiration, eau, marche…"></label>
+        <button id="addEntry">Ajouter</button>
+      </div>
+      <div class="card">
+        <h2>Mes entrées</h2>
+        <table id="logTable">
+          <thead><tr><th>Date</th><th>Heure</th><th>Intensité</th><th>Déclencheur</th><th>Action</th><th></th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+    <section id="stats" class="tab">
+      <h1>Statistiques</h1>
+      <div class="card">
+        <div id="statsSummary">Aucune donnée pour le moment.</div>
+      </div>
+    </section>
+    <section id="admin" class="tab">
+      <h1>Panneau Admin</h1>
+      <div class="card">
+        <p>Vue globale des journaux (lecture seule, sur <b>cet appareil</b>).</p>
+        <div class="row" style="gap:6px;margin-bottom:10px">
+          <button id="exportAll" class="secondary">Exporter CSV (tous)</button>
+        </div>
+        <div id="adminList"></div>
+      </div>
+    </section>
+    <section id="settings" class="tab">
+      <h1>Paramètres</h1>
+      <div class="card">
+        <label>Prix d’un paquet (€) <input id="pricePerPack" type="number" step="0.1" min="0" value="11.0"></label>
+        <label>Cigarettes/jour avant arrêt <input id="cigsPerDay" type="number" min="0" value="10"></label>
+        <div class="row" style="margin-top:10px">
+          <button id="saveSettings">Enregistrer</button>
+          <button id="logout" class="danger">Se déconnecter</button>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="js/app.js"></script>
+</body>
+</html>
