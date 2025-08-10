@@ -20,3 +20,5 @@ table{width:100%;border-collapse:collapse}
 th,td{border-bottom:1px solid #22314a;padding:8px;text-align:left}
 .tab { display: none; }
 .tab.active { display: block; }
+.tab { display: none !important; }
+.tab.active { display: block !important; }
